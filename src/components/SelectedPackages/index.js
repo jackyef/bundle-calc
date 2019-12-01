@@ -17,8 +17,20 @@ const SelectedPackages = () => {
   const packageSum = useContext(PackageSumContext);
   const { packages, totalSize } = packageSum;
 
+  useEffect(() => {
+    const handler = () => {
+      if (window.innerWidth <= 480) setPlacement('bottom');
+    }
+
+    window.addEventListener('resize', handler);
+
+    return () => {
+      window.removeEventListener('resize', handler);
+    }
+  }, []);
+
   return (
-    <Drawer placement={placement} onClose={onClose} isOpen={isOpen}>
+    <Drawer placement={placement} onClose={onClose} isOpen={isOpen} size="md">
       <DrawerOverlay />
       <DrawerContent>
         <DrawerHeader borderBottomWidth="1px">Packages List</DrawerHeader>
@@ -28,13 +40,14 @@ const SelectedPackages = () => {
               packageSum.remove(k);
             };
 
+            const prettifiedSize = `${v.gzip / 1024}`.split('.').map((s, i) => i === 0 ? s : s.substring(0, 2)).join('.');
+
             return (
               <div
                 key={k}
-                label={`${String(v.gzip / 1024).substring(0, 7)} kB`}
                 onClose={removePackage}
               >
-                {k}
+                {k} - {prettifiedSize} kB
               </div>
             );
           })}

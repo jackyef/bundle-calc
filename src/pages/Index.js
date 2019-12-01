@@ -12,7 +12,7 @@ const Header = () => {
   const { loading } = useContext(PackageSumContext);
 
   return (
-    <Heading as="h1">
+    <Heading as="h1" mb={8}>
       <code>bundle-calc</code> {loading ? <Spinner /> : null}
     </Heading>
   );
