@@ -1,5 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useData, createDataClient, DataProvider } from 'react-isomorphic-data';
+import {
+  Collapse,
+  Input,
+  InputGroup,
+  InputRightElement,
+  Icon,
+  Spinner,
+  Button,
+  ButtonGroup,
+} from '@chakra-ui/core';
+
+import { PackageSumContext } from '../Layout/PackageSumProvider';
 
 const SearchInput = () => {
   const [searchText, setSearchText] = useState('');
@@ -7,49 +19,49 @@ const SearchInput = () => {
     'https://api.npms.io/v2/search/suggestions',
     {
       q: searchText,
+      size: 10,
     },
   );
+
+  const packageSum = useContext(PackageSumContext);
 
   let content = null;
 
   if (!data && loading) {
-    content = <div>Loading...</div>;
+    content = null;
   } else if (Array.isArray(data)) {
     content = data.map(d => {
       const packageAndVersion = `${d.package.name}@${d.package.version}`;
 
-      return (
-        <div key={packageAndVersion}>
-          {packageAndVersion}
-          <style jsx>{`
-            div {
-              padding: 4px 8px;
-              border-radius: 4px;
-              border: 1px solid gray;
-              margin-bottom: 8px;
-              color: white;
-              background: #333;
-            }
+      const onClick = () => {
+        packageSum.add({ name: d.package.name, version: d.package.version });
+      };
 
-            div:hover {
-              filter: brightness(120%);
-            }
-          `}</style>
-        </div>
+      return (
+        <ButtonGroup spacing={4} marginRight={2} marginBottom={2} key={packageAndVersion}>
+          <Button leftIcon="add" size="sm" onClick={onClick}>
+            {packageAndVersion}
+          </Button>
+        </ButtonGroup>
       );
     });
+  } else if (searchText) {
+    content = <div>No result.</div>;
   } else {
-    content = <div className="package">No result.</div>;
+    content = null;
   }
 
   return (
     <div>
-      <input
-        type="text"
-        onChange={e => setSearchText(e.target.value)}
-        className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
-      />
-      {content}
+      <InputGroup>
+        <Input type="text" onChange={e => setSearchText(e.target.value)} />
+        <InputRightElement>
+          {loading ? <Spinner color="purple.500" /> : null}
+        </InputRightElement>
+      </InputGroup>
+      <Collapse mt={4} isOpen={Boolean(content)}>
+        {content}
+      </Collapse>
     </div>
   );
 };
