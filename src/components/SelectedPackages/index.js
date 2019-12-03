@@ -59,7 +59,7 @@ const SelectedPackages = () => {
                 justifyContent="space-between"
                 marginBottom={2}
               >
-                <Button leftIcon="small-close" size="sm" variantColor="red" variant="outline" onClick={removePackage}>
+                <Button leftIcon="small-close" size="sm" variant="outline" onClick={removePackage}>
                   {k}
                 </Button>
                 <Text>
