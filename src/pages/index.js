@@ -26,7 +26,7 @@ const Header = () => {
   );
 };
 
-const Index = () => {
+const index = () => {
   return (
     <Layout>
       <Head>
@@ -97,4 +97,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default index;
