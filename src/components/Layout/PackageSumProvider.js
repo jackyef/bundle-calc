@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState, createContext } from 'react';
 import { useData } from 'react-isomorphic-data';
-import { useToast, useDisclosure } from "@chakra-ui/core";
+import { useToast, useDisclosure } from '@chakra-ui/core';
 
 export const PackageSumContext = React.createContext({
   packages: {},
@@ -22,6 +22,10 @@ const PackageSumProvider = ({ children }) => {
       package: fullPkgName,
       record: true,
     },
+    undefined,
+    {
+      skip: !lastSelected.name,
+    },
   );
 
   useEffect(() => {
@@ -37,7 +41,7 @@ const PackageSumProvider = ({ children }) => {
       toast({
         title: `Successfully added ${fullPkgName}.`,
         description: `Total size has been updated.`,
-        status: "success",
+        status: 'success',
         duration: 1000,
         isClosable: true,
       });
@@ -47,7 +51,7 @@ const PackageSumProvider = ({ children }) => {
       toast({
         title: `Failed to add ${fullPkgName}.`,
         description: `The size of the package is not available.`,
-        status: "error",
+        status: 'error',
         duration: 3000,
         isClosable: true,
       });
@@ -58,9 +62,9 @@ const PackageSumProvider = ({ children }) => {
     setLastSelected(pkg);
   };
 
-  const remove = pkg => {
+  const remove = pkgFullName => {
     setState(prev => {
-      const fullName = `${pkg.name}@${pkg.version}`;
+      const fullName = pkgFullName;
       const newState = {
         ...prev,
         packages: {
@@ -74,10 +78,13 @@ const PackageSumProvider = ({ children }) => {
     });
   };
 
-  const packages = useMemo(() => Object.keys(state.packages).map(key => {
-    return [key, state.packages[key]];
-  }), [state.packages]);
-
+  const packages = useMemo(
+    () =>
+      Object.keys(state.packages).map(key => {
+        return [key, state.packages[key]];
+      }),
+    [state.packages],
+  );
 
   const totalSize = useMemo(() => {
     return packages.reduce((acc, v) => acc + v[1].gzip, 0);

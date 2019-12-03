@@ -5,6 +5,7 @@ import Layout from '../components/Layout';
 import SearchInput from '../components/SearchInput';
 import TotalStats from '../components/TotalStats';
 import SelectedPackages from '../components/SelectedPackages';
+import Footer from '../components/Footer';
 import { PackageSumContext } from '../components/Layout/PackageSumProvider';
 
 // TODO: create a drawer to see list of dependencies
@@ -25,6 +26,7 @@ const Index = () => {
       <TotalStats />
       <SearchInput />
       <SelectedPackages />
+      <Footer />
     </Layout>
   );
 };

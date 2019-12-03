@@ -5578,10 +5578,10 @@ react-is@^16.7.0, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.12.0.tgz#2cc0fe0fba742d97fd527c42a13bec4eeb06241c"
   integrity sha512-rPCkf/mWBtKc97aLL9/txD8DZdemK0vkA3JMLShjlJB3Pj3s+lpf1KaBzMfQrAmhMQB0n1cU/SUGgKKBCe837Q==
 
-react-isomorphic-data@^0.12.1:
-  version "0.12.1"
-  resolved "https://registry.yarnpkg.com/react-isomorphic-data/-/react-isomorphic-data-0.12.1.tgz#a2ad6188e0e9935869961b06a5ecd4b9fdf25a37"
-  integrity sha512-UlGpFbsRin6309IOkjqVQ55HJZ9BftmkoMVkuBSf/vYTvYnVZHBlXwHqDmTVk4iGSOfboceFrTWYxBWK5gvwcA==
+react-isomorphic-data@^0.12.3:
+  version "0.12.3"
+  resolved "https://registry.yarnpkg.com/react-isomorphic-data/-/react-isomorphic-data-0.12.3.tgz#67d980b643a1a4aa65e2ef06c087d30a121b2c61"
+  integrity sha512-3LYmCfAFuWcPVF4qy8ll2WWzmhz5jGcOc0IgRluJkwDjlo0dUgMugnNKDzrvrkV9KKGgs+IzGTRpN6r5wzvP7Q==
 
 react-spring@^8.0.27:
   version "8.0.27"

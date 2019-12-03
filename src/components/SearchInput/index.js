@@ -21,6 +21,10 @@ const SearchInput = () => {
       q: searchText,
       size: 10,
     },
+    undefined,
+    {
+      skip: !searchText,
+    },
   );
 
   const packageSum = useContext(PackageSumContext);
@@ -32,14 +36,21 @@ const SearchInput = () => {
   } else if (Array.isArray(data)) {
     content = data.map(d => {
       const packageAndVersion = `${d.package.name}@${d.package.version}`;
+      const { packages } = packageSum;
+      const alreadyAdded = packages.some(p => p[0] === packageAndVersion);
 
       const onClick = () => {
         packageSum.add({ name: d.package.name, version: d.package.version });
       };
 
       return (
-        <ButtonGroup spacing={4} marginRight={2} marginBottom={2} key={packageAndVersion}>
-          <Button leftIcon="add" size="sm" onClick={onClick}>
+        <ButtonGroup
+          spacing={4}
+          marginRight={2}
+          marginBottom={2}
+          key={packageAndVersion}
+        >
+          <Button leftIcon={alreadyAdded ? 'check' : 'add'} size="sm" onClick={onClick} disabled={alreadyAdded}>
             {packageAndVersion}
           </Button>
         </ButtonGroup>
@@ -56,7 +67,7 @@ const SearchInput = () => {
       <InputGroup>
         <Input type="text" onChange={e => setSearchText(e.target.value)} />
         <InputRightElement>
-          {loading ? <Spinner color="purple.500" /> : null}
+          {loading ? <Spinner /> : null}
         </InputRightElement>
       </InputGroup>
       <Collapse mt={4} isOpen={Boolean(content)}>
