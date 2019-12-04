@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Heading, Spinner, IconButton, useColorMode } from '@chakra-ui/core';
 import Head from 'next/head';
 
@@ -8,11 +8,22 @@ import TotalStats from '../components/TotalStats';
 import SelectedPackages from '../components/SelectedPackages';
 import Footer from '../components/Footer';
 import { PackageSumContext } from '../components/Layout/PackageSumProvider';
+import { initGA } from '../utils/GA';
+import { registerSW } from '../utils/serviceWorker';
+import canUseDOM from '../utils/dom/canUseDOM';
+
+if (canUseDOM) {
+  registerSW();
+}
 
 const Header = () => {
   const { loading } = useContext(PackageSumContext);
   const { colorMode, toggleColorMode } = useColorMode();
-
+  
+  useEffect(() => {
+    initGA();
+  }, []);
+  
   return (
     <Heading as="h1" mb={8} display="flex" justifyContent="space-between">
       <div>
@@ -83,13 +94,6 @@ const index = () => {
           async
           src="https://www.googletagmanager.com/gtag/js?id=UA-149852843-2"
         ></script>
-        <script>
-          {`window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'UA-149852843-2');`}
-        </script>
       </Head>
       <Header />
       <TotalStats />
