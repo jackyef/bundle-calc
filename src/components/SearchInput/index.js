@@ -69,13 +69,15 @@ const SearchInput = () => {
 
   return (
     <div>
-      <label>
-        Search for package on npm
-        <InputGroup>
-          <Input type="text" onChange={e => setSearchText(e.target.value)} />
-          <InputRightElement>{loading ? <Spinner /> : null}</InputRightElement>
-        </InputGroup>
-      </label>
+      <InputGroup>
+        <Input
+          type="text"
+          onChange={e => setSearchText(e.target.value)}
+          aria-label="Search for packages on npm"
+          placeholder="Search for packages on npm..."
+        />
+        <InputRightElement>{loading ? <Spinner /> : null}</InputRightElement>
+      </InputGroup>
       <Collapse mt={4} isOpen={Boolean(content)}>
         {content}
       </Collapse>

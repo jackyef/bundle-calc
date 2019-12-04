@@ -1,0 +1,21 @@
+{
+  "name": "bundle-calc",
+  "short_name": "bundle-calc",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "background_color": "#FFFFFF",
+  "description": "calculate bundle size of your next project! 💻",
+  "display": "fullscreen",
+  "start_url": "/",
+  "theme_color": "#000"
+}
