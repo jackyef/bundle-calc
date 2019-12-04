@@ -1,6 +1,6 @@
 {
-  "name": "Next Offline",
-  "short_name": "Next Offline",
+  "name": "bundle-calc",
+  "short_name": "bundle-calc",
   "icons": [
     {
       "src": "/icon-192.png",
@@ -14,7 +14,7 @@
     }
   ],
   "background_color": "#FFFFFF",
-  "description": "make your Next.js application work offline using service workers via Google's workbox",
+  "description": "calculate bundle size of your next project! 💻",
   "display": "fullscreen",
   "start_url": "/",
   "theme_color": "#000"
