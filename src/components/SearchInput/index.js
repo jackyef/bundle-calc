@@ -50,7 +50,12 @@ const SearchInput = () => {
           marginBottom={2}
           key={packageAndVersion}
         >
-          <Button leftIcon={alreadyAdded ? 'check' : 'add'} size="sm" onClick={onClick} disabled={alreadyAdded}>
+          <Button
+            leftIcon={alreadyAdded ? 'check' : 'add'}
+            size="sm"
+            onClick={onClick}
+            disabled={alreadyAdded}
+          >
             {packageAndVersion}
           </Button>
         </ButtonGroup>
@@ -64,12 +69,13 @@ const SearchInput = () => {
 
   return (
     <div>
-      <InputGroup>
-        <Input type="text" onChange={e => setSearchText(e.target.value)} />
-        <InputRightElement>
-          {loading ? <Spinner /> : null}
-        </InputRightElement>
-      </InputGroup>
+      <label>
+        Search for package on npm
+        <InputGroup>
+          <Input type="text" onChange={e => setSearchText(e.target.value)} />
+          <InputRightElement>{loading ? <Spinner /> : null}</InputRightElement>
+        </InputGroup>
+      </label>
       <Collapse mt={4} isOpen={Boolean(content)}>
         {content}
       </Collapse>

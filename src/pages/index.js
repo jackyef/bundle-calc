@@ -19,6 +19,7 @@ const Header = () => {
         <code>bundle-calc</code> {loading ? <Spinner /> : null}
       </div>
       <IconButton
+        aria-label="Toggle dark mode"
         onClick={toggleColorMode}
         icon={colorMode === 'light' ? 'moon' : 'sun'}
       />
@@ -67,14 +68,8 @@ const index = () => {
           href="/safari-pinned-tab.svg"
           color="#5bbad5"
         /> */}
-        <meta
-          name="apple-mobile-web-app-title"
-          content="bundle-calc"
-        />
-        <meta
-          name="application-name"
-          content="bundle-calc"
-        /> 
+        <meta name="apple-mobile-web-app-title" content="bundle-calc" />
+        <meta name="application-name" content="bundle-calc" />
         <meta
           property="og:description"
           content="Helps you decide on the stack for your next project by calculating the estimated bundle size."
@@ -83,10 +78,18 @@ const index = () => {
           property="og:url"
           content="https://bundlephobia.com"
         /> */}
-        <meta
-          property="twitter:creator"
-          content="@jackyef__"
-        />
+        <meta property="twitter:creator" content="@jackyef__" />
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=UA-149852843-2"
+        ></script>
+        <script>
+          {`window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-149852843-2');`}
+        </script>
       </Head>
       <Header />
       <TotalStats />

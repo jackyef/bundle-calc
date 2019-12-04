@@ -8,7 +8,6 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-  IconButton,
   Spinner,
 } from '@chakra-ui/core';
 
