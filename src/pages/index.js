@@ -19,11 +19,11 @@ if (canUseDOM) {
 const Header = () => {
   const { loading } = useContext(PackageSumContext);
   const { colorMode, toggleColorMode } = useColorMode();
-  
+
   useEffect(() => {
     initGA();
   }, []);
-  
+
   return (
     <Heading as="h1" mb={8} display="flex" justifyContent="space-between">
       <div>
@@ -53,42 +53,90 @@ const index = () => {
           name="description"
           content="Helps you decide on the stack for your next project by calculating the estimated bundle size."
         />
-        {/* <link
-          rel="canonical"
-          href="https://bundlephobia.com"
-        /> */}
-        {/* <link
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="theme-color" content="#1A202C" />
+        <link rel="canonical" href="https://bundle-calc.now.sh" />
+        <link
+          rel="apple-touch-icon"
+          sizes="57x57"
+          href="/apple-icon-57x57.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="60x60"
+          href="/apple-icon-60x60.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="72x72"
+          href="/apple-icon-72x72.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="76x76"
+          href="/apple-icon-76x76.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="114x114"
+          href="/apple-icon-114x114.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="120x120"
+          href="/apple-icon-120x120.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="144x144"
+          href="/apple-icon-144x144.png"
+        />
+        <link
+          rel="apple-touch-icon"
+          sizes="152x152"
+          href="/apple-icon-152x152.png"
+        />
+        <link
           rel="apple-touch-icon"
           sizes="180x180"
-          href="/apple-touch-icon.png"
+          href="/apple-icon-180x180.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="192x192"
+          href="/android-icon-192x192.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="32x32"
-          href="/favicon-32x32.png?l=4"
+          href="/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="96x96"
+          href="/favicon-96x96.png"
         />
         <link
           rel="icon"
           type="image/png"
           sizes="16x16"
-          href="/favicon-16x16.png?l=3"
+          href="/favicon-16x16.png"
         />
-        <link
-          rel="mask-icon"
-          href="/safari-pinned-tab.svg"
-          color="#5bbad5"
-        /> */}
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
+        <meta name="theme-color" content="#ffffff" />
         <meta name="apple-mobile-web-app-title" content="bundle-calc" />
         <meta name="application-name" content="bundle-calc" />
         <meta
           property="og:description"
           content="Helps you decide on the stack for your next project by calculating the estimated bundle size."
         />
-        {/* <meta
-          property="og:url"
-          content="https://bundlephobia.com"
-        /> */}
+        <meta property="og:url" content="https://bundle-calc.now.sh" />
         <meta property="twitter:creator" content="@jackyef__" />
         <script
           async
