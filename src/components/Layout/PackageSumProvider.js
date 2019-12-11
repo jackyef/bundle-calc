@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect, useState, createContext } from 'react';
-import { useData } from 'react-isomorphic-data';
+import React, { useMemo, useEffect, useState, createContext, useCallback } from 'react';
+import { useLazyData } from 'react-isomorphic-data';
 import { useToast, useDisclosure } from '@chakra-ui/core';
 
 export const PackageSumContext = React.createContext({
@@ -13,30 +13,36 @@ const PackageSumProvider = ({ children }) => {
   const [state, setState] = useState({
     packages: {},
   });
+  const [inflightRequests, setInflightRequests] = useState({});
   const drawerDisclosure = useDisclosure();
-  const [lastSelected, setLastSelected] = useState('');
-  const fullPkgName = `${lastSelected.name}@${lastSelected.version}`;
-  const { data, error, loading } = useData(
-    'https://bundlephobia.com/api/size',
-    {
-      package: fullPkgName,
-      record: true,
-    },
-    undefined,
-    {
-      skip: !lastSelected.name,
-    },
-  );
 
-  useEffect(() => {
-    if (data && lastSelected) {
+  const add = useCallback(async pkg => {
+    const fullPkgName = `${pkg.name}@${pkg.version}`;
+
+    try {
+      setInflightRequests(prev => {
+        return {
+          ...prev,
+          [fullPkgName]: true,
+        };
+      });
+      const loadedData = await(await fetch(`https://bundlephobia.com/api/size?package=${fullPkgName}&record=true`)).json();
+      
       setState(prev => ({
         ...prev,
         packages: {
           ...prev.packages,
-          [fullPkgName]: data,
+          [fullPkgName]: loadedData,
         },
       }));
+
+      setInflightRequests(prev => {
+        const newState = { ...prev };
+        
+        delete newState[fullPkgName];
+
+        return newState;
+      });
 
       toast({
         title: `Successfully added ${fullPkgName}.`,
@@ -45,9 +51,7 @@ const PackageSumProvider = ({ children }) => {
         duration: 1000,
         isClosable: true,
       });
-    }
-
-    if (error) {
+    } catch (err) {
       toast({
         title: `Failed to add ${fullPkgName}.`,
         description: `The size of the package is not available.`,
@@ -55,14 +59,18 @@ const PackageSumProvider = ({ children }) => {
         duration: 3000,
         isClosable: true,
       });
+
+      setInflightRequests(prev => {
+        const newState = { ...prev };
+        
+        delete newState[fullPkgName];
+
+        return newState;
+      });
     }
-  }, [data, error, lastSelected]); // eslint-disable-line
+  }, [toast]);
 
-  const add = pkg => {
-    setLastSelected(pkg);
-  };
-
-  const remove = pkgFullName => {
+  const remove = useCallback(pkgFullName => {
     setState(prev => {
       const fullName = pkgFullName;
       const newState = {
@@ -76,7 +84,7 @@ const PackageSumProvider = ({ children }) => {
 
       return newState;
     });
-  };
+  }, []);
 
   const packages = useMemo(
     () =>
@@ -96,7 +104,7 @@ const PackageSumProvider = ({ children }) => {
     add,
     remove,
     drawerDisclosure,
-    loading,
+    loading: Object.keys(inflightRequests).length > 0,
   };
 
   return (
