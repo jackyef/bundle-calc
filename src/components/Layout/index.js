@@ -6,8 +6,11 @@ import {
   Box,
   ColorModeProvider,
 } from '@chakra-ui/core';
+import LogRocket from 'logrocket';
 
 import PackageSumProvider from './PackageSumProvider';
+
+LogRocket.init('dkbexk/bundle-calc');
 
 const client = createDataClient();
 
