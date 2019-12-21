@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Heading, Spinner, IconButton, useColorMode } from '@chakra-ui/core';
 import Head from 'next/head';
+import { register } from 'next-offline/runtime'
 
 import Layout from '../components/Layout';
 import SearchInput from '../components/SearchInput';
@@ -13,7 +14,7 @@ import { registerSW } from '../utils/serviceWorker';
 import canUseDOM from '../utils/dom/canUseDOM';
 
 if (canUseDOM) {
-  registerSW();
+  register();
 }
 
 const Header = () => {
