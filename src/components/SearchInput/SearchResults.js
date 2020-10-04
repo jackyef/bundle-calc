@@ -17,27 +17,15 @@ const SearchResults = ({ data, loading, error, searchText, packages, onAdd }) =>
       const packageAndVersion = `${d.package.name}@${d.package.version}`;
       const alreadyAdded = packages.some(p => p[0] === packageAndVersion);
 
-      const onClick = () => {
-        onAdd({ name: d.package.name, version: d.package.version });
-      };
-
       return (
-        <ButtonGroup
-          spacing={4}
-          marginRight={2}
-          marginBottom={2}
+        <SearchResultItem
+          packageName={d.package.name}
+          packageVersion={d.package.version}
           key={packageAndVersion}
-        >
-          <Button
-            leftIcon={alreadyAdded ? 'check' : 'add'}
-            size="sm"
-            onClick={onClick}
-            disabled={alreadyAdded}
-          >
-            {packageAndVersion}
-          </Button>
-        </ButtonGroup>
-      );
+          onClick={onAdd}
+          disabled={alreadyAdded}
+          packageAndVersion={packageAndVersion}
+        />
     });
   } else if (error) {
     content = (
