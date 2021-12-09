@@ -17,7 +17,7 @@
     "@emotion/styled": "^10.0.23",
     "@zeit/next-css": "^1.0.1",
     "emotion-theming": "^10.0.19",
-    "next": "^9.3.2",
+    "next": "^11.1.3",
     "next-offline": "^4.0.6",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
